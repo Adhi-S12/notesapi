@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './register.css';
 import AuthContext from '../../context/AuthContext';
 
 const Register = () => {
 	const { token, setToken } = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	const [ formInput, setFormInput ] = useState({
 		email: '',
@@ -25,7 +26,13 @@ const Register = () => {
 				email: formInput.email,
 				password: formInput.password,
 			});
-			const { accessToken, doc } = response.data;
+			if (response.statusText === 'OK') {
+				if (response.data.accessToken) {
+					setToken(response.data.accessToken);
+					localStorage.setItem('token', JSON.stringify(response.data.accessToken));
+					navigate('/', { replace: true });
+				}
+			}
 		} catch (error) {
 			setFormInput({ ...formInput, error: error.message });
 			console.log(formInput.error);
