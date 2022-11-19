@@ -19,24 +19,44 @@ const CreateNote = () => {
 		}
 
 		if (token) {
-			try {
-				const response = await axios.post(
+			axios
+				.post(
 					`${process.env.REACT_APP_API_DOMAIN}/notes/`,
 					{ title, content },
 					{
 						headers: { Authorization: `Bearer ${token}` },
 					}
-				);
-				if (response.statusText === 'OK') {
+				)
+				.then((response) => {
 					const { data } = response.data;
 					setNotes([ ...notes, data ]);
 					setTitle('');
 					setContent('');
-				}
-			} catch (error) {
-				console.error(error);
-			}
+				})
+				.catch((error) => {
+					console.error(error);
+				});
 		}
+
+		// if (token) {
+		// 	try {
+		// 		const response = await axios.post(
+		// 			`${process.env.REACT_APP_API_DOMAIN}/notes/`,
+		// 			{ title, content },
+		// 			{
+		// 				headers: { Authorization: `Bearer ${token}` },
+		// 			}
+		// 		);
+		// 		if (response.statusText === 'OK') {
+		// 			const { data } = response.data;
+		// 			setNotes([ ...notes, data ]);
+		// 			setTitle('');
+		// 			setContent('');
+		// 		}
+		// 	} catch (error) {
+		// 		console.error(error);
+		// 	}
+		// }
 	};
 	return (
 		<div className="createnote">
