@@ -16,33 +16,49 @@ const Home = () => {
 	const { token, setToken } = useContext(AuthContext);
 	const [ notes, setNotes ] = useState(null);
 
-	const fetchData = async () => {
-		try {
-			const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/notes/`, {
-				headers: { Authorization: `Bearer ${token}` },
-			});
+	// const fetchData = async () => {
+	// 	try {
+	// 		const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/notes/`, {
+	// 			headers: { Authorization: `Bearer ${token}` },
+	// 		});
 
-			setNotes(response.data.notes);
-		} catch (error) {
-			localStorage.removeItem('token');
-			navigate('/login', { exact: true });
-		}
-	};
+	// 		setNotes(response.data.notes);
+	// 	} catch (error) {
+	// 		localStorage.removeItem('token');
+	// 		navigate('/login', { exact: true });
+	// 	}
+	// };
 
-	useEffect(() => {
-		if (localStorage.getItem('token')) {
-			let lsToken = localStorage.getItem('token');
-			lsToken = lsToken.split('').slice(1, lsToken.length - 1).join('');
-			setToken(lsToken);
-			fetchData();
-		} else if (token) {
-			fetchData();
-			return;
-		} else {
-			navigate('/', { replace: true });
-		}
-		// }, []);
-	}, []);
+	useEffect(
+		() => {
+			const fetchData = async () => {
+				try {
+					const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/notes/`, {
+						headers: { Authorization: `Bearer ${token}` },
+					});
+
+					setNotes(response.data.notes);
+				} catch (error) {
+					localStorage.removeItem('token');
+					navigate('/login', { exact: true });
+				}
+			};
+
+			if (localStorage.getItem('token')) {
+				let lsToken = localStorage.getItem('token');
+				lsToken = lsToken.split('').slice(1, lsToken.length - 1).join('');
+				setToken(lsToken);
+				fetchData();
+			} else if (token) {
+				fetchData();
+				return;
+			} else {
+				navigate('/', { replace: true });
+			}
+			// }, []);
+		},
+		[ navigate, token, setToken ]
+	);
 
 	const handleLogout = () => {
 		setToken('');
