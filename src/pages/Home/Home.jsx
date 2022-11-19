@@ -75,7 +75,7 @@ const Home = () => {
 				<Header />
 				<CreateNote token={token} notes={notes} setNotes={setNotes} />
 				{notes && <Notelist notes={notes.notes} />}
-				{!notes && <h1>No notes available</h1>}
+				{!notes && <h1 style={{ textAlign: 'center', marginTop: '2rem' }}>No notes available</h1>}
 			</div>
 		</NotesContext.Provider>
 	);
