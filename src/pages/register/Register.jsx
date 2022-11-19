@@ -5,7 +5,7 @@ import './register.css';
 import AuthContext from '../../context/AuthContext';
 
 const Register = () => {
-	const { token, setToken } = useContext(AuthContext);
+	const { setToken } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const [ formInput, setFormInput ] = useState({
@@ -22,7 +22,7 @@ const Register = () => {
 		e.preventDefault();
 
 		try {
-			const response = await axios.post('http://localhost:3000/auth/register', {
+			const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/auth/register`, {
 				email: formInput.email,
 				password: formInput.password,
 			});
@@ -35,7 +35,6 @@ const Register = () => {
 			}
 		} catch (error) {
 			setFormInput({ ...formInput, error: error.message });
-			console.log(formInput.error);
 		}
 	};
 

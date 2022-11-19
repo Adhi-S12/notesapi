@@ -24,17 +24,16 @@ const Login = () => {
 	const onLoginFormSubmit = async (e) => {
 		e.preventDefault();
 
-		if (formInput.email == '' || formInput.password == '') {
+		if (formInput.email === '' || formInput.password === '') {
 			setFormInput({ ...formInput, error: 'Please enter both email and password' });
 			return;
 		}
 
 		try {
-			const response = await axios.post('http://localhost:3000/auth/login', {
+			const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/auth/login`, {
 				email: formInput.email,
 				password: formInput.password,
 			});
-			console.log(response.data);
 			if (response.data.accessToken) {
 				setToken(response.data.accessToken);
 				localStorage.setItem('token', JSON.stringify(response.data.accessToken));

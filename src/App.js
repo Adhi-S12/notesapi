@@ -25,3 +25,6 @@ function App() {
 }
 
 export default App;
+
+// https://notesappapi-production.up.railway.app/
+// ${process.env.REACT_APP_API_DOMAIN}

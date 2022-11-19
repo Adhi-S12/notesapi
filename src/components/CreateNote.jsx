@@ -6,7 +6,7 @@ import './CreateNote.css';
 
 const CreateNote = () => {
 	const { notes, setNotes } = useContext(NotesContext);
-	const { token, setToken } = useContext(AuthContext);
+	const { token } = useContext(AuthContext);
 
 	const [ title, setTitle ] = useState('');
 	const [ content, setContent ] = useState('');
@@ -14,20 +14,20 @@ const CreateNote = () => {
 	const onFormSubmit = async (e) => {
 		e.preventDefault();
 
-		if (title == '' || content == '') {
+		if (title === '' || content === '') {
 			return;
 		}
 
 		if (token) {
 			try {
 				const response = await axios.post(
-					'http://localhost:3000/notes/',
+					`${process.env.REACT_APP_API_DOMAIN}/notes/`,
 					{ title, content },
 					{
 						headers: { Authorization: `Bearer ${token}` },
 					}
 				);
-				if (response.statusText == 'OK') {
+				if (response.statusText === 'OK') {
 					const { data } = response.data;
 					setNotes([ ...notes, data ]);
 					setTitle('');

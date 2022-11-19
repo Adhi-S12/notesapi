@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Home.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -17,24 +17,30 @@ const Home = () => {
 	const [ notes, setNotes ] = useState(null);
 
 	useEffect(() => {
-		if (localStorage.getItem('token')) {
-			setToken(JSON.parse(localStorage.getItem('token')));
-			console.log(token);
+		if (token) {
 			fetchData();
+			return;
+		}
+		if (localStorage.getItem('token')) {
+			let lsToken = localStorage.getItem('token');
+			lsToken = lsToken.split('').slice(1, lsToken.length - 1).join('');
+			setToken(lsToken);
+			fetchData();
+		} else {
+			navigate('/', { replace: true });
 		}
 	}, []);
 
 	const fetchData = async () => {
 		try {
-			const response = await axios.get('http://localhost:3000/notes/', {
+			const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/notes/`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
 
 			setNotes(response.data.notes);
 		} catch (error) {
-			console.log(error);
-			localStorage.removeItem('token');
-			navigate('/login', { exact: true });
+			// localStorage.removeItem('token');
+			// navigate('/login', { exact: true });
 		}
 	};
 

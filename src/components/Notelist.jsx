@@ -4,7 +4,7 @@ import Note from './Note';
 import NotesContext from '../context/NotesContext';
 
 const Notelist = () => {
-	const { notes, setNotes } = useContext(NotesContext);
+	const { notes } = useContext(NotesContext);
 
 	return (
 		<React.Fragment>

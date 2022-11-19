@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import './Note.css';
 import { CiEdit, CiTrash } from 'react-icons/ci';
-import { notesContext } from '../pages/Home/Home';
 import axios from 'axios';
 import NotesContext from '../context/NotesContext';
 import AuthContext from '../context/AuthContext';
@@ -16,15 +15,13 @@ const Note = ({ note }) => {
 
 	const handleDelete = async () => {
 		try {
-			const response = await axios.delete(`http://localhost:3000/notes/${note._id}`, {
+			const response = await axios.delete(`${process.env.REACT_APP_API_DOMAIN}/notes/${note._id}`, {
 				headers: { Authorization: `Bearer ${token}` },
 			});
-			if (response.statusText == 'OK') {
+			if (response.statusText === 'OK') {
 				const filteredNotes = notes.filter((n) => n._id !== note._id);
-				console.log(filteredNotes);
 				setNotes([ ...filteredNotes ]);
 			}
-			console.log('Item deleted');
 		} catch (error) {
 			console.error(error);
 		}
@@ -33,13 +30,13 @@ const Note = ({ note }) => {
 	const handleEdit = async () => {
 		try {
 			const response = await axios.patch(
-				`http://localhost:3000/notes/${note._id}`,
+				`${process.env.REACT_APP_API_DOMAIN}/notes/${note._id}`,
 				{ title: editTitle, content: editContent },
 				{
 					headers: { Authorization: `Bearer ${token}` },
 				}
 			);
-			if (response.statusText == 'OK') {
+			if (response.statusText === 'OK') {
 				const filteredNotes = notes.filter((n) => n._id !== note._id);
 				setNotes([ ...filteredNotes, { ...note, title: editTitle, content: editContent } ]);
 				setEditMode(false);
