@@ -29,18 +29,6 @@ const Home = () => {
 						navigate('/login', { exact: true });
 					});
 			};
-			// const fetchData = async () => {
-			// 	try {
-			// 		const response = await axios.get(`${process.env.REACT_APP_API_DOMAIN}/notes/`, {
-			// 			headers: { Authorization: `Bearer ${token}` },
-			// 		});
-
-			// 		setNotes(response.data.notes);
-			// 	} catch (error) {
-			// 		localStorage.removeItem('token');
-			// 		navigate('/login', { exact: true });
-			// 	}
-			// };
 
 			if (localStorage.getItem('token')) {
 				let lsToken = localStorage.getItem('token');
@@ -48,12 +36,11 @@ const Home = () => {
 				setToken(lsToken);
 				fetchData(lsToken);
 			} else if (token) {
-				fetchData();
+				fetchData(token);
 				return;
 			} else {
-				navigate('/', { replace: true });
+				navigate('/login', { replace: true });
 			}
-			// }, []);
 		},
 		[ navigate, token, setToken ]
 	);

@@ -13,38 +13,33 @@ const Note = ({ note }) => {
 	const [ editTitle, setEditTitle ] = useState(note.title);
 	const [ editContent, setEditContent ] = useState(note.content);
 
-	const handleDelete = async () => {
-		try {
-			const response = await axios.delete(`${process.env.REACT_APP_API_DOMAIN}/notes/${note._id}`, {
+	const handleDelete = () => {
+		axios
+			.delete(`${process.env.REACT_APP_API_DOMAIN}/notes/${note._id}`, {
 				headers: { Authorization: `Bearer ${token}` },
-			});
-			if (response.statusText === 'OK') {
+			})
+			.then((response) => {
 				const filteredNotes = notes.filter((n) => n._id !== note._id);
 				setNotes([ ...filteredNotes ]);
-			}
-		} catch (error) {
-			console.error(error);
-		}
+			})
+			.catch((error) => console.error(error));
 	};
 
 	const handleEdit = async () => {
-		try {
-			const response = await axios.patch(
+		axios
+			.patch(
 				`${process.env.REACT_APP_API_DOMAIN}/notes/${note._id}`,
 				{ title: editTitle, content: editContent },
 				{
 					headers: { Authorization: `Bearer ${token}` },
 				}
-			);
-			if (response.statusText === 'OK') {
+			)
+			.then((response) => {
 				const filteredNotes = notes.filter((n) => n._id !== note._id);
 				setNotes([ ...filteredNotes, { ...note, title: editTitle, content: editContent } ]);
 				setEditMode(false);
-			}
-			console.log('Item updated');
-		} catch (error) {
-			console.error(error);
-		}
+			})
+			.catch((error) => console.error(error));
 	};
 
 	if (editMode) {
