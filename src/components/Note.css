@@ -1,0 +1,122 @@
+.note {
+  width: 300px;
+  height: auto;
+  background-color: var(--gray);
+  padding: 1rem;
+  border-radius: 5px;
+  position: relative;
+  margin: 1rem;
+}
+
+.noteTitle {
+  font-family: var(--font-family);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.noteContent {
+  font-family: var(--font-family);
+  font-style: italic;
+  margin-top: .5rem;
+}
+
+.lastEdited {
+  margin-top: 1.5rem;
+  font-size: 0.7rem;
+  text-align: right;
+
+}
+
+.editedAt {
+  text-align: right;
+  position: absolute;
+  bottom: .5rem;
+  right: .5rem;
+
+}
+
+.btnContainer {
+  display: flex;
+  gap: .2rem;
+}
+
+.editBtn,
+.deleteBtn {
+  font-size: 1rem;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.editBtn {
+  background-color: #3c8935;
+  transition: all .1s ease-in-out;
+}
+
+.editBtn:hover {
+  background-color: #3c8935c8;
+}
+
+
+.deleteBtn {
+  background-color: #c95454;
+  transition: all .1s ease-in-out;
+}
+
+.deleteBtn:hover {
+  background-color: #c95454bc;
+}
+
+
+/* Edit css */
+
+.edit {
+  display: flex;
+}
+
+.editControl {
+  font-family: var(--font-family);
+  margin-bottom: 1rem;
+}
+
+.editControlLabel {
+  font-weight: bold;
+}
+
+.noteTitleEdit {
+  border: none;
+  padding: 0.5rem .75rem;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.cancelEditBtn,
+.submitEditBtn {
+  padding: 0.5rem .75rem;
+  margin-right: 0.5rem;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cancelEditBtn {
+  background: #c95454;
+  color: #FFF;
+}
+
+.cancelEditBtn:hover {
+  background: #c95454d4;
+}
+
+.submitEditBtn {
+  background: #3c8935;
+  color: #FFF;
+}
+
+.submitEditBtn:hover {
+  background: #3c8935b2;
+}

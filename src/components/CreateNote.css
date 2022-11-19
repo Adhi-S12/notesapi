@@ -1,0 +1,62 @@
+.createnote {
+  width: 400px;
+  margin: 0 auto;
+  align-items: center;
+  margin-top: 1rem;
+  /* border: 1px solid red; */
+  padding: 2rem;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.createnote__title {
+  font-family: var(--font-family);
+  text-align: center;
+}
+
+.createnote__form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: .5rem;
+}
+
+.createnote__form-control {
+  display: flex;
+  align-items: center;
+}
+
+.createnote__form-control__label {
+  flex: 1;
+  border-radius: 5px;
+}
+
+.createnote__form-control__content {
+  flex: 1.5;
+  outline: none;
+  border: none;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+  font-family: var(--font-family);
+}
+
+.createnote__form-control__content:placeholder {
+  color: var(--gray);
+}
+
+.createnote__form-submitbtn {
+  margin-top: 1rem;
+  background-color: var(--cta);
+  border: none;
+  outline: none;
+  color: var(--black);
+  padding: .5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.createnote__form-submitbtn:hover {
+  filter: brightness(96%);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+}
