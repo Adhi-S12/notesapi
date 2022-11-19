@@ -5,34 +5,33 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 
 const Login = () => {
-	const [ formInput, setFormInput ] = useState({
-		email: '',
-		password: '',
-		error: null,
-		submitDisabled: false,
-	});
 	const navigate = useNavigate();
 	const { setToken } = useContext(AuthContext);
 
+	const [ email, setEmail ] = useState('');
+	const [ password, setPassword ] = useState('');
+	const [ error, setError ] = useState(null);
+
 	useEffect(
 		() => {
-			setFormInput({ ...formInput, error: null });
+			// setFormInput({ ...formInput, error: null });
+			setError(null);
 		},
-		[ formInput.email, formInput.password ]
+		[ email, password ]
 	);
 
 	const onLoginFormSubmit = async (e) => {
 		e.preventDefault();
 
-		if (formInput.email === '' || formInput.password === '') {
-			setFormInput({ ...formInput, error: 'Please enter both email and password' });
+		if (email === '' || password === '') {
+			setError('Please enter both email and password');
 			return;
 		}
 
 		try {
 			const response = await axios.post(`${process.env.REACT_APP_API_DOMAIN}/auth/login`, {
-				email: formInput.email,
-				password: formInput.password,
+				email: email,
+				password: password,
 			});
 			if (response.data.accessToken) {
 				setToken(response.data.accessToken);
@@ -40,10 +39,7 @@ const Login = () => {
 				navigate('/', { replace: true });
 			}
 		} catch (error) {
-			setFormInput({
-				...formInput,
-				error: 'Invalid Credentials. Please enter valid username/password',
-			});
+			setError('Invalid Credentials. Please enter valid username/password');
 		}
 	};
 
@@ -58,8 +54,8 @@ const Login = () => {
 						name="email"
 						id="email"
 						className="login__form-control-input error"
-						value={formInput.email}
-						onChange={(e) => setFormInput({ ...formInput, [e.target.name]: e.target.value })}
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
 					/>
 					{/* {  <p className="login__form-error">Please enter a valid email</p>} */}
 				</div>
@@ -70,13 +66,13 @@ const Login = () => {
 						name="password"
 						id="password"
 						className="login__form-control-input"
-						value={formInput.password}
-						onChange={(e) => setFormInput({ ...formInput, [e.target.name]: e.target.value })}
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
 					/>
 				</div>
 
-				{formInput.error && <p className="login__form-error">{formInput.error}</p>}
-				<button className="login__form-submitbtn" type="Submit" disabled={formInput.submitDisabled}>
+				{error && <p className="login__form-error">{error}</p>}
+				<button className="login__form-submitbtn" type="Submit">
 					Sign In
 				</button>
 
