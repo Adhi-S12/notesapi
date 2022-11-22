@@ -120,3 +120,37 @@
 .submitEditBtn:hover {
   background: #3c8935b2;
 }
+
+
+@media screen and (max-width:450px) {
+  .note {
+    width: 250px;
+    padding: .5rem;
+    margin: .5rem;
+  }
+
+  .noteTitle {
+    font-size: 1rem;
+  }
+
+  .noteContent {
+    font-size: .8rem;
+  }
+
+  .lastEdited {
+    font-size: 0.5rem;
+  }
+
+  .cancelEditBtn,
+  .submitEditBtn {
+    padding: 0.25rem .5rem;
+    margin-right: 0.25rem;
+    cursor: pointer;
+  }
+
+  .editBtn,
+  .deleteBtn {
+    font-size: .5rem;
+    padding: 0.1rem;
+  }
+}
